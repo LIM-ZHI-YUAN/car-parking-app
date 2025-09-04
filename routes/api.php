@@ -7,6 +7,9 @@ use App\Http\Controllers\Api\V1\Auth\LoginController;
 use App\Http\Controllers\Api\V1\Auth\LogoutController;
 use App\Http\Controllers\Api\V1\Auth\ProfileController;
 use App\Http\Controllers\Api\V1\Auth\PasswordUpdateController;
+use App\Http\Controllers\Api\V1\VehicleController;
+use App\Http\Controllers\Api\V1\ZoneController;
+use App\Http\Controllers\Api\V1\ParkingController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -24,4 +27,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('password', PasswordUpdateController::class);
 
     Route::post('logout', LogoutController::class);
+
+    Route::apiResource('vehicles', VehicleController::class);
+
+    Route::post('parkings/start', [ParkingController::class, 'start']);
 });
+
+Route::get('zones', [ZoneController::class, 'index']);
