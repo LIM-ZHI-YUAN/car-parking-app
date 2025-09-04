@@ -41,4 +41,11 @@ class Parking extends Model
         return $query->whereNotNull('stop_time');
     }
 
+    protected static function booted(): void
+    {
+        static::addGlobalScope('user', function (Builder $builder) {
+            $builder->where('user_id', auth()->id());
+        });
+    }
+
 }
