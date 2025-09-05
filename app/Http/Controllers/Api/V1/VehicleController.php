@@ -9,6 +9,9 @@ use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @group Vehicles
+ */
 class VehicleController extends Controller
 {
     /**

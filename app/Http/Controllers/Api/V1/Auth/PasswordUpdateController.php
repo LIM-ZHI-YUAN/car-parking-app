@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @group Auth
+ */
 class PasswordUpdateController extends Controller
 {
     public function __invoke(Request $request)

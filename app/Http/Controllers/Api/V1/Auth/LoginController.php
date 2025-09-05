@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @group Auth
+ */
 class LoginController extends Controller
 {
     public function __invoke(Request $request)
