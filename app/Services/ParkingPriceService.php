@@ -10,12 +10,12 @@ class ParkingPriceService
     public static function calculatePrice(int $zone_id, string $start_time, string $stop_time=null): int
     {
         $start = new Carbon($start_time);
-        $stop = $stop_time ? new Carbon($stop_time) : now();
+        $stop = (!is_null($stop_time)) ? new Carbon($stop_time) : now();
 
-        $totalTimeByMinutes = $start->diffInMinutes($stop);
+        $totalTimeByMinutes = abs($stop->diffInMinutes($start));
 
         $priceByMinutes = Zone::find($zone_id)->price_per_hour / 60;
 
-        return ceil($totalTimeByMinutes * $priceByMinutes);
+        return $totalTimeByMinutes * $priceByMinutes;
     }
 }
