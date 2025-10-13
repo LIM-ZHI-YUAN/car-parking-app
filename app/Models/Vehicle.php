@@ -15,7 +15,7 @@ class Vehicle extends Model
     use HasFactory;
     use SoftDeletes;
  
-    protected $fillable = ['user_id', 'plate_number'];
+    protected $fillable = ['user_id', 'plate_number', 'description'];
 
     protected static function booted(): void
     {
