@@ -53,6 +53,17 @@ class ParkingController extends Controller
         return new ParkingResource($parking);
     }
 
+    public function index()
+    {
+        $parkings = Parking::query()
+            ->active()
+            ->with('zone', 'vehicle')
+            ->latest()
+            ->get();
+
+        return ParkingResource::collection($parkings);
+    }
+
     public function show(Parking $parking)
     {
         return new ParkingResource($parking);
