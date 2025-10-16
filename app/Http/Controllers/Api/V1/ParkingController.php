@@ -68,4 +68,15 @@ class ParkingController extends Controller
     {
         return new ParkingResource($parking);
     }
+
+    public function history()
+    {
+        $parkings = Parking::query()
+            ->stopped()
+            ->with('zone', 'vehicle')
+            ->latest()
+            ->get();
+
+        return ParkingResource::collection($parkings);
+    }
 }
