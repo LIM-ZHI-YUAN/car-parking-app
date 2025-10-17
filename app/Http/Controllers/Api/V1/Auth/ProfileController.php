@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -14,7 +15,13 @@ class ProfileController extends Controller
 {
     public function show(Request $request)
     {
-        return response()->json($request->user()->only(['name', 'email']));
+        $url = Storage::url($request->user()->profile_img) ?? '';
+        
+        return response()->json([
+            'name' => $request->user()->name,
+            'email' => $request->user()->email,
+            'url' => $url,
+        ]);
     }
 
     public function update(Request $request)

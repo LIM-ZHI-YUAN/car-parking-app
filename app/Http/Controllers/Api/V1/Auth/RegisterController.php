@@ -16,17 +16,23 @@ use Illuminate\Validation\Rules\Password;
 class RegisterController extends Controller
 {
     public function __invoke(Request $request)
-    {
+    {        
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Password::defaults()],
+            'file' => ['nullable', 'file', 'image', 'max:2048'],
         ]);
+
+        if ($request->hasFile('file')) {
+            $path = $request->file('file')->store('avatars', 'public');
+        }
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'profile_img' => $path ?? '',
         ]);
 
         event(new Registered($user));
