@@ -39,4 +39,24 @@ class ProfileController extends Controller
 
         return response()->json($validatedData, Response::HTTP_OK);
     }
+
+
+    // can be extracted to a seperate controller
+    public function downloadProfileImg(Request $request)
+    {
+        $path = $request->user()->profile_img;
+
+        if (!$path) {
+            return response()->json(['message' => 'Image not found.'], Response::HTTP_NOT_FOUND);
+        }
+
+        /**
+         * both are working fine
+         * https://stackoverflow.com/questions/19012832/laravel-download-pdf-in-public-folder
+         * https://stackoverflow.com/questions/76258056/laravel-unable-to-retrieve-the-file-size-for-file-at-location
+         */
+        
+        return response()->download(public_path('storage/' . $path));
+        //return Storage::disk('public')->download($path);
+    }
 }

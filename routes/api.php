@@ -22,7 +22,8 @@ Route::post('auth/login', LoginController::class);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('profile', [ProfileController::class, 'show']);
     Route::put('profile', [ProfileController::class, 'update']);
-
+    Route::get('profile/downloadProfileImg', [ProfileController::class, 'downloadProfileImg']);
+    
     Route::put('password', PasswordUpdateController::class);
 
     Route::post('logout', LogoutController::class);
